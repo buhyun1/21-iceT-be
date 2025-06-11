@@ -38,7 +38,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          FULL_REPO="$ECR_HOST/$ECR_REPO_NAME"
+          FULL_REPO="$ECR_HOST"
           echo "🔍 Checking if tag '$IMAGE_TAG' exists at $FULL_REPO..."
           RESULT=$(aws ecr describe-images \
             --registry-id ${ECR_HOST%%.*} \
