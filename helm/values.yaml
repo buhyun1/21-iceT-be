@@ -6,7 +6,7 @@ image:
 #   - name: image.repository
 #     value: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
 #   - name: image.tag
-#     value: latest
+#     value: latest 
 
 env:
   SPRING_DATASOURCE_URL: ""
