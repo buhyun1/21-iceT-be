@@ -26,8 +26,13 @@ jobs:
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH" = "dev" ]; then
             echo "ECR_REPO_NAME=dev-k8s" >> $GITHUB_ENV
-          else
+            echo "ARGOCD_APP_NAME=k8s-dev" >> $GITHUB_ENV
+          elif [ "$BRANCH" = "main" ]; then
             echo "ECR_REPO_NAME=prod-k8s" >> $GITHUB_ENV
+            echo "ARGOCD_APP_NAME=k8s-prod" >> $GITHUB_ENV
+          else
+            echo "❌ ERROR: Unsupported branch '$BRANCH'. Only 'dev' and 'main' branches are supported."
+            exit 1
           fi
 
       # ───────────────────────────────────────────────────────────────
@@ -77,3 +82,14 @@ jobs:
 
           echo "📤 Pushing image $FULL_REPO:latest"
           docker push $FULL_REPO:latest
+
+      # ───────────────────────────────────────────────────────────────
+      # 4) Update ArgoCD Application
+      # ───────────────────────────────────────────────────────────────
+      - name: Update ArgoCD Application
+        run: |
+          # 이미지 태그만 업데이트
+          argocd app set $ARGOCD_APP_NAME --image "$ECR_HOST/$ECR_REPO_NAME:$IMAGE_TAG"
+          
+          # 동기화 트리거
+          argocd app sync $ARGOCD_APP_NAME
