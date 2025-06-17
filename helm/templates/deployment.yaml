@@ -32,3 +32,5 @@ spec:
               value: "{{ .Values.env.SPRING_REDIS_HOST }}"
             - name: SPRING_REDIS_PORT
               value: "{{ .Values.env.SPRING_REDIS_PORT }}"
+            - name: KAKAO_ADMIN_KEY
+              value: "{{ .Values.env.KAKAO_ADMIN_KEY }}"
