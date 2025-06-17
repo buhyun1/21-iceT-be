@@ -28,8 +28,13 @@ ingress:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:266735804784:certificate/ccdafaca-dc50-4889-a4f7-4cbd86e84747
   hosts:
-    - path: /
+    - host: www.kooco.click
+      path: /
       pathType: Prefix
-  tls: []
+  tls:
+    - hosts:
+        - www.kooco.click
+
