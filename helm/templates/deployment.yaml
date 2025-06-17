@@ -34,3 +34,7 @@ spec:
               value: "{{ .Values.env.SPRING_REDIS_PORT }}"
             - name: KAKAO_ADMIN_KEY
               value: "{{ .Values.env.KAKAO_ADMIN_KEY }}"
+            - name: AWS_S3_ACCESS_KEY
+              value: "{{ .Values.env.AWS_S3_ACCESS_KEY }}"
+            - name: AWS_S3_SECRET_KEY
+              value: "{{ .Values.env.AWS_S3_SECRET_KEY }}"
