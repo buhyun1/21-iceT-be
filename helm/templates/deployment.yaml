@@ -38,3 +38,5 @@ spec:
               value: "{{ .Values.env.AWS_S3_ACCESS_KEY }}"
             - name: AWS_S3_SECRET_KEY
               value: "{{ .Values.env.AWS_S3_SECRET_KEY }}"
+            - name: AWS_REGION_STATIC
+              value: "{{ .Values.env.AWS_REGION_STATIC }}"
