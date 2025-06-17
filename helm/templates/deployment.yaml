@@ -48,3 +48,5 @@ spec:
               value: "{{ .Values.env.AWS_REGION_STATIC }}"
             - name: JWT_SECRET
               value: "{{ .Values.env.JWT_SECRET }}"
+            - name: CLOUD_AWS_S3_BUCKET
+              value: "{{ .Values.env.CLOUD_AWS_S3_BUCKET }}"
