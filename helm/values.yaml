@@ -22,20 +22,34 @@ redis:
   image: redis:7
   port: 6379
 
+image:
+  repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
+  tag: latest
+
+env:
+  SPRING_DATASOURCE_URL: ""
+  SPRING_DATASOURCE_USERNAME: ""
+  SPRING_REDIS_HOST: "redis"
+  SPRING_REDIS_PORT: "6379"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+redis:
+  image: redis:7
+  port: 6379
+
 ingress:
   enabled: true
-  className: alb
+  className: nginx  
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:266735804784:certificate/c1a3597a-64d3-4ee8-b666-16437c0ced13
+    nginx.ingress.kubernetes.io/rewrite-target: / 
   hosts:
-    - host: www.kooco.click
+    - host: www.kooco.click 
       paths:
         - path: /
           pathType: Prefix
-  tls:
-    - hosts:
-        - www.kooco.click
+  tls: []  #
+
 
