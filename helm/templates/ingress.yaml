@@ -17,7 +17,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "your-chart.fullname" $ }}
+                name: {{ include "k8s-dev.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
