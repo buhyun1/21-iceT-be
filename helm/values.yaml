@@ -2,30 +2,6 @@ image:
   repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
   tag: latest
 
-# parameters:
-#   - name: image.repository
-#     value: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
-#   - name: image.tag
-#     value: latest 
-
-env:
-  SPRING_DATASOURCE_URL: ""
-  SPRING_DATASOURCE_USERNAME: ""
-  SPRING_REDIS_HOST: "redis"
-  SPRING_REDIS_PORT: "6379"
-
-service:
-  type: ClusterIP
-  port: 8080
-
-redis:
-  image: redis:7
-  port: 6379
-
-image:
-  repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
-  tag: latest
-
 env:
   SPRING_DATASOURCE_URL: ""
   SPRING_DATASOURCE_USERNAME: ""
