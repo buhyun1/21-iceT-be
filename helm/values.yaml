@@ -18,9 +18,11 @@ redis:
 
 ingress:
   enabled: true
-  className: nginx
+  className: nginx  # 기존 alb → nginx 로 수정
+  annotations: {}   # 필요 시 alb 관련 annotation 제거
   hosts:
     - host: www.kooco.click
       paths:
         - path: /
           pathType: Prefix
+  tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
