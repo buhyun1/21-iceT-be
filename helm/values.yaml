@@ -18,18 +18,9 @@ redis:
 
 ingress:
   enabled: true
-  className: alb
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/group.name: koco
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    alb.ingress.kubernetes.io/healthcheck-path: /
-    alb.ingress.kubernetes.io/subnets: subnet-0d4bb16e0408a501d,subnet-015e1a91d8dcd2cfd  
+  className: nginx
   hosts:
     - host: www.kooco.click
       paths:
         - path: /
           pathType: Prefix
-  tls: []
-
