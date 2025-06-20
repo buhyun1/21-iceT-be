@@ -33,7 +33,3 @@ ingress:
           pathType: Prefix
   tls: []
 
-          pathType: Prefix
-  tls: []
-
-
