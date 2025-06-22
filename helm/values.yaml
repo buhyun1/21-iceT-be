@@ -18,7 +18,7 @@ redis:
   
 ingress:
   enabled: true
-  className: nginx  # 기존 alb → nginx 로 수정
+  className: alb  # 기존 alb → nginx 로 수정
   annotations: {}   # 필요 시 alb 관련 annotation 제거
   hosts:
     - host: www.kooco.click
