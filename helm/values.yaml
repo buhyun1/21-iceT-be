@@ -18,8 +18,11 @@ redis:
   
 ingress:
   enabled: true
-  className: alb  # 기존 alb → nginx 로 수정
-  annotations: {}   # 필요 시 alb 관련 annotation 제거
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
   hosts:
     - host: www.kooco.click
       paths:
@@ -27,5 +30,5 @@ ingress:
           pathType: Prefix
         - path: /api
           pathType: Prefix
-  tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
+  tls: []
 
