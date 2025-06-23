@@ -1,12 +1,14 @@
-apiVersion: v1
+apiVersion: v1Add commentMore actions
 kind: Service
 metadata:
-  name: spring-svc
-  namespace: dev
+  name: {{ include "k8s-dev.fullname" . }}
+  labels:
+    app: app
 spec:
-  type: ClusterIP
   selector:
-    app: spring-app
+    app: app  # ← Deployment의 label과 일치해야 함
   ports:
-    - port: 80         # ALB/Ingress가 호출할 포트
-      targetPort: 8080 # Spring 컨테이너 포트
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+  type: {{ .Values.service.type }}
