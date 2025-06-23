@@ -6,8 +6,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
-    - host: backend.kooco.click
+    - host: api.kooco.click
       http:
         paths:
           - path: /api(/|$)(.*)
