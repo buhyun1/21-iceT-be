@@ -4,24 +4,26 @@ metadata:
   name: spring-ingress
   namespace: dev
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
-    - host: api.kooco.click
+    - host: www.kooco.click
       http:
         paths:
-          - path: /api(/|$)(.*)
+          - path: /api/*
             pathType: Prefix
             backend:
               service:
-                name: k8s-dev-k8s-dev  # Helm 템플릿 결과에 맞춰 수정
+                name: spring-svc
                 port:
-                  number: 8080
-          - path: /health(/|$)(.*)
+                  number: 80
+          - path: /health/*
             pathType: Prefix
             backend:
               service:
-                name: k8s-dev-k8s-dev  # 동일 서비스
+                name: spring-svc
                 port:
-                  number: 8080
+                  number: 80
