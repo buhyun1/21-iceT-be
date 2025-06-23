@@ -1,24 +1,29 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "k8s-dev.fullname" . }}-ingress
+  name: spring-ingress
   namespace: dev
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: alb
   rules:
-    - host: {{ .Values.ingress.hosts[0].host }}
+    - host: www.kooco.click
       http:
         paths:
-          {{- range .Values.ingress.hosts[0].paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
+          - path: /api/*
+            pathType: Prefix
             backend:
               service:
-                name: {{ include "k8s-dev.fullname" . }}
+                name: spring-svc
                 port:
-                  number: {{ $.Values.service.port }}
-          {{- end }}
+                  number: 80
+          - path: /health/*
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-svc
+                port:
+                  number: 80
