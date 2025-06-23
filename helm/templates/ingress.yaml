@@ -18,8 +18,8 @@ spec:
                 name: k8s-dev-k8s-dev  # Helm 템플릿 결과에 맞춰 수정
                 port:
                   number: 8080
-          - path: /health
-            pathType: Exact
+          - path: /health(/|$)(.*)
+            pathType: Prefix
             backend:
               service:
                 name: k8s-dev-k8s-dev  # 동일 서비스
