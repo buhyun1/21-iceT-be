@@ -18,15 +18,17 @@ redis:
   
 ingress:
   enabled: true
-  className: nginx
+  className: alb  # ← ALB 컨트롤러용
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/group.name: kooco-api
   hosts:
-    - host: api.kooco.click
+    - host: www.kooco.click
       paths:
-        - path: /api(/|$)(.*)
+        - path: /api/*
           pathType: Prefix
-        - path: /actuator(/|$)(.*)
+        - path: /actuator/*
           pathType: Prefix
-
 
