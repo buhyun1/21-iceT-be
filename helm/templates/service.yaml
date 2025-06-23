@@ -1,12 +1,12 @@
-apiVersion: v1Add commentMore actions
+apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "k8s-dev.fullname" . }}
   labels:
-    app: app
+    app: {{ include "k8s-dev.name" . }}
 spec:
   selector:
-    app: app  # ← Deployment의 label과 일치해야 함
+    app: {{ include "k8s-dev.name" . }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 8080
