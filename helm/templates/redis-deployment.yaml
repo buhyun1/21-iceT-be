@@ -12,6 +12,7 @@ spec:
       labels:
         app: redis
     spec:
+      hostNetwork: true 
       containers:
         - name: redis
           image: {{ .Values.redis.image }}
