@@ -22,7 +22,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: www.kooco.click
+    - host: api.kooco.click
       paths:
         - path: /api(/|$)(.*)
           pathType: Prefix
