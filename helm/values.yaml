@@ -27,6 +27,6 @@ ingress:
   hosts:
     - host: www.kooco.click
       paths:
-        - path: /api
+        - path: /api/*
           pathType: Prefix
 
