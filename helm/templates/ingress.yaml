@@ -15,13 +15,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: spring-svc
+                name: k8s-dev-k8s-dev  # Helm 템플릿 결과에 맞춰 수정
                 port:
-                  number: 80
+                  number: 8080
           - path: /health
             pathType: Exact
             backend:
               service:
-                name: spring-svc
+                name: k8s-dev-k8s-dev  # 동일 서비스
                 port:
-                  number: 80
+                  number: 8080
