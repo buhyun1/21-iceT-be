@@ -18,17 +18,15 @@ redis:
   
 ingress:
   enabled: true
-  className: alb
+  className: nginx
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
     - host: www.kooco.click
       paths:
-        - path: /actuator/*
+        - path: /api(/|$)(.*)
           pathType: Prefix
-        - path: /api/*
+        - path: /actuator(/|$)(.*)
           pathType: Prefix
+
 
