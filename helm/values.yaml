@@ -27,6 +27,6 @@ ingress:
           pathType: Prefix
         - path: /api
           pathType: Prefix
-        - path: /actuator
+        - path: /actuator/health
           pathType: Prefix
   tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
