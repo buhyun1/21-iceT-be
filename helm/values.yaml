@@ -16,10 +16,27 @@ redis:
   image: redis:7
   port: 6379
   
+# ingress:
+#   enabled: true
+#   className: nginx  # 기존 alb → nginx 로 수정
+#   annotations: {}   # 필요 시 alb 관련 annotation 제거
+#   hosts:
+#     - host: www.kooco.click
+#       paths:
+#         - path: /
+#           pathType: Prefix
+#         - path: /api
+#           pathType: Prefix
+#         - path: /actuator/health
+#           pathType: Prefix
+#   tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
+
+
 ingress:
   enabled: true
-  className: nginx  # 기존 alb → nginx 로 수정
-  annotations: {}   # 필요 시 alb 관련 annotation 제거
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # 필요 시
   hosts:
     - host: www.kooco.click
       paths:
@@ -29,4 +46,11 @@ ingress:
           pathType: Prefix
         - path: /actuator/health
           pathType: Prefix
+        - path: /health-check
+          pathType: Prefix
+          backend:
+            service:
+              name: healthcheck-service  # 여기 중요
+              port:
+                number: 80
   tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
