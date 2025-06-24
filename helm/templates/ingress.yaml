@@ -1,26 +1,54 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: main-ingress
-  namespace: default
+  name: {{ include "k8s-dev.fullname" . }}-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
+  ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: www.kooco.click
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host }}
       http:
         paths:
-        - path: /api/?(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: spring-svc1
-              port:
-                number: 8080
-        - path: /health/*
-          pathType: Prefix
-          backend:
-            service:
-              name: spring-svc2
-              port:
-                number: 80
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ include "k8s-dev.fullname" $ }}
+                port:
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}
+{{- end }}
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: main-ingress
+#   namespace: default
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /$1
+# spec:
+#   rules:
+#     - host: www.kooco.click
+#       http:
+#         paths:
+#         - path: /api/?(.*)
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: spring-svc1
+#               port:
+#                 number: 8080
+#         - path: /health/*
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: spring-svc2
+#               port:
+#                 number: 80
