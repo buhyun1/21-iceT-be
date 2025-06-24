@@ -16,19 +16,4 @@ redis:
   image: redis:7
   port: 6379
   
-ingress:
-  enabled: true
-  className: alb  # ← ALB 컨트롤러용
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/group.name: kooco-api
-  hosts:
-    - host: www.kooco.click
-      paths:
-        - path: /api/*
-          pathType: Prefix
-        - path: /actuator/*
-          pathType: Prefix
 
