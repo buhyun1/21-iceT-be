@@ -46,6 +46,8 @@ ingress:
           pathType: Prefix
         - path: /actuator/health
           pathType: Prefix
+        - path: /healthz
+          pathType: Prefix
         - path: /health-check
           pathType: Prefix
           backend:
