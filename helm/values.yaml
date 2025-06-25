@@ -57,4 +57,8 @@ ingress:
           pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
-
+tls:
+  - hosts:
+      - www.kooco.click
+      - kooco.click
+    secretName: kooco-click-tls
