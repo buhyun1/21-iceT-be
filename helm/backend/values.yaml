@@ -15,3 +15,40 @@ service:
 redis:
   image: redis:7
   port: 6379
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  hosts:
+    - host: www.kooco.click
+      paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
+        - path: /
+          pathType: Prefix
+    - host: kooco.click
+      paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
+        - path: /
+          pathType: Prefix
+
+controller:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  service:
+    type: NodePort
+    nodePorts:
+      http: 30080
+      https: 30443 

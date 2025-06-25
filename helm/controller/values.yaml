@@ -1,0 +1,11 @@
+# values.yaml for ingress controller (nginx-ingress)
+# 실제로는 공식 chart의 values 구조를 참고해서 작성해야 함 
+
+controller:
+  image:
+    repository: registry.k8s.io/ingress-nginx/controller
+    tag: "v1.10.1"
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30080 
