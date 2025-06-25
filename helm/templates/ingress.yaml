@@ -53,42 +53,45 @@
 #               port:
 #                 number: 80
 
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "k8s-dev.fullname" . }}-ingress
+  name: app-ingress
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host }}
+    - host: www.kooco.click
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
+          - path: /api
+            pathType: Prefix
             backend:
               service:
-                name: {{ include "k8s-dev.fullname" $ }}
+                name: app-service
                 port:
-                  number: {{ $.Values.service.port }}
-          {{- end }}
-    {{- end }}
-  {{- if .Values.ingress.tls }}
-  tls:
-    {{- range .Values.ingress.tls }}
-    - hosts:
-        {{- range .hosts }}
-        - {{ . }}
-        {{- end }}
-      secretName: {{ .secretName }}
-    {{- end }}
-  {{- end }}
-{{- end }}
-
+                  number: 80
+          - path: /actuator/health
+            pathType: Prefix
+            backend:
+              service:
+                name: app-service
+                port:
+                  number: 80
+          - path: /healthz
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: app-service
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-service
+                port:
+                  number: 80
 
