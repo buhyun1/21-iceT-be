@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fullname" . }}
+  namespace: spring
+spec:
+  type: ClusterIP
+  selector:
+    app: spring  # 실제 deployment의 selector에 맞게 설정
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080        # 외부에서 접근할 포트
+      targetPort: 8080  # 파드 내부에서 사용하는 포트

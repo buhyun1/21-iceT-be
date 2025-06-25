@@ -1,40 +1,3 @@
-image:
-  repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
-  tag: latest
-
-env:
-  SPRING_DATASOURCE_URL: ""
-  SPRING_DATASOURCE_USERNAME: ""
-  SPRING_REDIS_HOST: "redis"
-  SPRING_REDIS_PORT: "6379"
-
-# service:
-#   type: ClusterIP
-#   port: 8080
-
-service:
-  type: ClusterIP
-  port: 8080
-  
-redis:
-  image: redis:7
-  port: 6379
-  
-# ingress:
-#   enabled: true
-#   className: nginx  # 기존 alb → nginx 로 수정
-#   annotations: {}   # 필요 시 alb 관련 annotation 제거
-#   hosts:
-#     - host: www.kooco.click
-#       paths:
-#         - path: /
-#           pathType: Prefix
-#         - path: /api
-#           pathType: Prefix
-#         - path: /actuator/health
-#           pathType: Prefix
-#   tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
-
 ingress:
   enabled: true
   className: nginx
@@ -70,4 +33,4 @@ controller:
     type: NodePort
     nodePorts:
       http: 30080
-      https: 30443
+      https: 30443 

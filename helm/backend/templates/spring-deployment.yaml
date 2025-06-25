@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app
+  name: spring
   labels:
-    app: app
+    app: spring
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app
+      app: spring
   template:
     metadata:
       labels:
-        app: app
+        app: spring
     spec:
       imagePullSecrets:             
         - name: ecr-secret
       hostNetwork: true
       containers:
-        - name: app
+        - name: spring
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 8080

@@ -1,4 +1,4 @@
-{{- define "k8s-dev.fullname" -}}
+{{- define "fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
