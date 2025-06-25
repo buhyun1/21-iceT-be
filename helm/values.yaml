@@ -36,6 +36,7 @@ ingress:
   className: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
   hosts:
     - host: www.kooco.click
       paths:
