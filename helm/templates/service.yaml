@@ -21,7 +21,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: k8s-dev-k8s-dev  # 실제 deployment의 selector에 맞게 설정
+    app: app  # 실제 deployment의 selector에 맞게 설정
   ports:
     - name: http
       protocol: TCP
