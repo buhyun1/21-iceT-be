@@ -1,30 +1,30 @@
-{{- if .Values.ingress.enabled }}
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ include "k8s-dev.fullname" . }}-ingress
-  annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
-spec:
-  ingressClassName: {{ .Values.ingress.className }}
-  rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host }}
-      http:
-        paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            pathType: {{ .pathType }}
-            backend:
-              service:
-                name: {{ include "k8s-dev.fullname" $ }}
-                port:
-                  number: {{ $.Values.service.port }}
-          {{- end }}
-    {{- end }}
-{{- end }}
+# {{- if .Values.ingress.enabled }}
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: {{ include "k8s-dev.fullname" . }}-ingress
+#   annotations:
+#     {{- range $key, $value := .Values.ingress.annotations }}
+#     {{ $key }}: {{ $value | quote }}
+#     {{- end }}
+# spec:
+#   ingressClassName: {{ .Values.ingress.className }}
+#   rules:
+#     {{- range .Values.ingress.hosts }}
+#     - host: {{ .host }}
+#       http:
+#         paths:
+#           {{- range .paths }}
+#           - path: {{ .path }}
+#             pathType: {{ .pathType }}
+#             backend:
+#               service:
+#                 name: {{ include "k8s-dev.fullname" $ }}
+#                 port:
+#                   number: {{ $.Values.service.port }}
+#           {{- end }}
+#     {{- end }}
+# {{- end }}
 
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
@@ -52,3 +52,79 @@ spec:
 #               name: spring-svc2
 #               port:
 #                 number: 80
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8s-dev-k8s-dev-ingress
+  namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.kooco.click
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /actuator/health
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /healthz
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+    - host: kooco.click
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /actuator/health
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /healthz
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: k8s-dev-k8s-dev
+                port:
+                  number: 80
+
