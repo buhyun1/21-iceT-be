@@ -53,78 +53,42 @@
 #               port:
 #                 number: 80
 
-
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: k8s-dev-k8s-dev-ingress
-  namespace: dev
+  name: {{ include "k8s-dev.fullname" . }}-ingress
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
-  ingressClassName: nginx
+  ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: www.kooco.click
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host }}
       http:
         paths:
-          - path: /api
-            pathType: Prefix
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
             backend:
               service:
-                name: k8s-dev-k8s-dev
+                name: {{ include "k8s-dev.fullname" $ }}
                 port:
-                  number: 80
-          - path: /actuator/health
-            pathType: Prefix
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-          - path: /healthz
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-    - host: kooco.click
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-          - path: /actuator/health
-            pathType: Prefix
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-          - path: /healthz
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: k8s-dev-k8s-dev
-                port:
-                  number: 80
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
 
