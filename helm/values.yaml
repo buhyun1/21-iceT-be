@@ -37,7 +37,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - host: www.kooco.click
       paths:
@@ -59,8 +59,8 @@ ingress:
           pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
-tls:
-  - hosts:
-      - www.kooco.click
-      - kooco.click
-    secretName: kooco-click-tls
+# tls:
+#   - hosts:
+#       - www.kooco.click
+#       - kooco.click
+#     secretName: kooco-click-tls
