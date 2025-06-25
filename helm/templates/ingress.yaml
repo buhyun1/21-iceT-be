@@ -56,7 +56,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  name: {{ include "k8s-dev.fullname" . }}
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
@@ -70,28 +70,28 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-service
+                name: {{ include "k8s-dev.fullname" . }}
                 port:
                   number: 80
           - path: /actuator/health
             pathType: Prefix
             backend:
               service:
-                name: app-service
+                name: {{ include "k8s-dev.fullname" . }}
                 port:
                   number: 80
           - path: /healthz
             pathType: ImplementationSpecific
             backend:
               service:
-                name: app-service
+                name: {{ include "k8s-dev.fullname" . }}
                 port:
                   number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: app-service
+                name: {{ include "k8s-dev.fullname" . }}
                 port:
                   number: 80
 
