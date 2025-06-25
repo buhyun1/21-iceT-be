@@ -33,9 +33,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return true;
         }
 
-        return request.getRequestURI().equals("/api/backend/v1/auth/refresh")
-            || request.getRequestURI().equals("/api/backend/v1/auth/callback")
-            || request.getRequestURI().equals("/swagger-ui/index.html#/");
+        return path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/webjars/")
+                || path.startsWith("/actuator/")
+				|| path.startsWith("/api/backend/v1/solution")
+                || path.equals("/api/backend/v1/auth/refresh")
+                || path.equals("/api/backend/v1/auth/callback")
+                || path.equals("/oauth/kakao/callback")
+                || path.equals("/api/backend/admin/today/problem-set")
+                || path.equals("/api/backend/test/token")
+                || path.equals("/api/backend/test/timezone");
+
+
     }
 
     @Override
