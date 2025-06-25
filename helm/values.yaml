@@ -35,36 +35,30 @@ redis:
 #           pathType: Prefix
 #   tls: []  # TLS 설정은 CloudFront 연동 시 ACM과 함께 사용
 
-# ingress:
-#   enabled: true
-#   className: nginx
-#   annotations:
-#     nginx.ingress.kubernetes.io/use-regex: "true"
-#     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-#     # cert-manager.io/cluster-issuer: letsencrypt-prod
-#   hosts:
-#     - host: www.kooco.click
-#       paths:
-#         - path: /api
-#           pathType: Prefix
-#         - path: /actuator/health
-#           pathType: Prefix
-#         - path: /healthz
-#           pathType: ImplementationSpecific
-#         - path: /
-#           pathType: Prefix
-#     - host: kooco.click
-#       paths:
-#         - path: /api
-#           pathType: Prefix
-#         - path: /actuator/health
-#           pathType: Prefix
-#         - path: /healthz
-#           pathType: ImplementationSpecific
-#         - path: /
-#           pathType: Prefix
-# tls:
-#   - hosts:
-#       - www.kooco.click
-#       - kooco.click
-#     secretName: kooco-click-tls
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  hosts:
+    - host: www.kooco.click
+      paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
+        - path: /
+          pathType: Prefix
+    - host: kooco.click
+      paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
+        - path: /
+          pathType: Prefix
