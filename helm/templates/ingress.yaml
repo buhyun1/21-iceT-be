@@ -72,26 +72,26 @@ spec:
               service:
                 name: {{ include "k8s-dev.fullname" . }}
                 port:
-                  number: 80
+                  number: 8080
           - path: /actuator/health
             pathType: Prefix
             backend:
               service:
                 name: {{ include "k8s-dev.fullname" . }}
                 port:
-                  number: 80
+                  number: 8080
           - path: /healthz
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ include "k8s-dev.fullname" . }}
                 port:
-                  number: 80
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:
               service:
                 name: {{ include "k8s-dev.fullname" . }}
                 port:
-                  number: 80
+                  number: 8080
 
