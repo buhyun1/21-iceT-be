@@ -62,3 +62,12 @@ ingress:
           pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
+
+controller:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  service:
+    type: NodePort
+    nodePorts:
+      http: 30080
+      https: 30443
