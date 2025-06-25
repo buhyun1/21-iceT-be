@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  labels:
+    app: redis
 spec:
   replicas: 1
   selector:
@@ -12,9 +14,8 @@ spec:
       labels:
         app: redis
     spec:
-      hostNetwork: true
       containers:
         - name: redis
-          image: {{ .Values.redis.image }}
+          image: redis:7.0
           ports:
-            - containerPort: {{ .Values.redis.port }}
+            - containerPort: 6379
