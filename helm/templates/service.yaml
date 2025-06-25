@@ -25,5 +25,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 80        # 외부에서 접근할 포트
+      port: 8080        # 외부에서 접근할 포트
       targetPort: 8080  # 파드 내부에서 사용하는 포트
