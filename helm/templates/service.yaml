@@ -19,10 +19,11 @@ metadata:
   name: {{ include "k8s-dev.fullname" . }}
   namespace: dev
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: k8s-dev-k8s-dev  # 실제 deployment의 selector에 맞게 설정
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80        # 외부에서 접근할 포트
       targetPort: 8080  # 파드 내부에서 사용하는 포트
