@@ -36,7 +36,6 @@ ingress:
   className: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    # nginx.ingress.kubernetes.io/rewrite-target: /actuator/health
   hosts:
     - host: www.kooco.click
       paths:
@@ -45,7 +44,23 @@ ingress:
         - path: /actuator/health
           pathType: Prefix
         - path: /healthz
-          pathType: ImplementationSpecific  # 정규표현식 대응 시 필요
+          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
-  tls: []
+    - host: kooco.click
+      paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
+        - path: /
+          pathType: Prefix
+
+  tls:
+    - hosts:
+        - www.kooco.click
+        - kooco.click
+      secretName: kooco-click-tls
+
