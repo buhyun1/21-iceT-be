@@ -1,3 +1,6 @@
+spring:
+  enabled: true
+  
 image:
   repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
   tag: latest
