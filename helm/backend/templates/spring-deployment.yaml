@@ -19,7 +19,10 @@ spec:
       hostNetwork: true
       containers:
         - name: spring
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          #image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image:
+            repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
+            tag: latest
           ports:
             - containerPort: 8080
           envFrom:
