@@ -31,6 +31,12 @@ ingress:
           pathType: Prefix
     - host: ""
       paths:
+        - path: /api
+          pathType: Prefix
+        - path: /actuator/health
+          pathType: Prefix
+        - path: /healthz
+          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
 
