@@ -1,3 +1,7 @@
+service:
+  name: k8s-backend-backend
+  port: 8080
+
 ingress:
   enabled: true
   className: nginx
