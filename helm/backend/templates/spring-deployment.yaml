@@ -51,3 +51,8 @@ spec:
               value: "{{ .Values.env.JWT_SECRET }}"
             - name: CLOUD_AWS_S3_BUCKET
               value: "{{ .Values.env.CLOUD_AWS_S3_BUCKET }}"
+
+      envFrom:
+        - secretRef:
+            name: spring-secret
+
