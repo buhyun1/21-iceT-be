@@ -2,6 +2,8 @@ controller:
   image:
     repository: registry.k8s.io/ingress-nginx/controller
     tag: "v1.10.1"
+    
+  fullnameOverride: ingress-nginx-controller
 
   service:
     type: NodePort
