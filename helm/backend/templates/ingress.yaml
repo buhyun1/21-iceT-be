@@ -32,6 +32,13 @@ spec:
                 name: {{ include "fullname" . }}
                 port:
                   number: 8080
+          - path: /oauth/kakao/callback  
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ include "fullname" . }}
+                port:
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:
