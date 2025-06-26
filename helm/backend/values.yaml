@@ -2,6 +2,11 @@ image:
   repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
   tag: latest
 
+env:
+  SPRING_DATASOURCE_URL: ""
+  SPRING_DATASOURCE_USERNAME: ""
+  SPRING_DATASOURCE_PASSWORD: ""
+  
 service:
   type: ClusterIP
   port: 8080
