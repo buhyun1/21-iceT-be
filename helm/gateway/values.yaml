@@ -29,6 +29,10 @@ ingress:
           pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
 
 controller:
   hostNetwork: true
