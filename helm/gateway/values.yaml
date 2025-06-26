@@ -11,40 +11,61 @@ ingress:
   hosts:
     - host: www.kooco.click
       paths:
-        - path: /api
-          pathType: Prefix
-        - path: /actuator/health
-          pathType: Prefix
-        - path: /healthz
-          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /actuator/health
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /healthz
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
     - host: kooco.click
       paths:
-        - path: /api
-          pathType: Prefix
-        - path: /actuator/health
-          pathType: Prefix
-        - path: /healthz
-          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
-    - host: ""
-      paths:
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
         - path: /api
           pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
         - path: /actuator/health
           pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
         - path: /healthz
-          pathType: ImplementationSpecific
-        - path: /
           pathType: Prefix
-
-controller:
-  hostNetwork: true
-  dnsPolicy: ClusterFirstWithHostNet
-  service:
-    type: NodePort
-    nodePorts:
-      http: 30080
-      https: 30443 
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
