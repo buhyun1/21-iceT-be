@@ -21,27 +21,82 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
     - host: www.kooco.click
       paths:
-        - path: /api
-          pathType: Prefix
-        - path: /actuator/health
-          pathType: Prefix
-        - path: /healthz
-          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /oauth/kakao/callback  
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /actuator/health
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /healthz
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
     - host: kooco.click
       paths:
-        - path: /api
-          pathType: Prefix
-        - path: /actuator/health
-          pathType: Prefix
-        - path: /healthz
-          pathType: ImplementationSpecific
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /oauth/kakao/callback  
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /actuator/health
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /healthz
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
 
 controller:
   hostNetwork: true
