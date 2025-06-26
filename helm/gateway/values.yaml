@@ -19,6 +19,13 @@ ingress:
               name: k8s-backend-backend
               port:
                 number: 8080
+        - path: /oauth/kakao/callback  
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
         - path: /api
           pathType: Prefix
           backend:
@@ -43,6 +50,13 @@ ingress:
     - host: kooco.click
       paths:
         - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: k8s-backend-backend
+              port:
+                number: 8080
+        - path: /oauth/kakao/callback  
           pathType: Prefix
           backend:
             service:
