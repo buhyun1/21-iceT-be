@@ -1,6 +1,19 @@
-spring:
-  enabled: true
-  
+env:
+  SPRING_DATASOURCE_URL: ""
+  SPRING_DATASOURCE_USERNAME: ""
+  SPRING_DATASOURCE_PASSWORD: ""
+  SPRING_REDIS_HOST: ""
+  SPRING_REDIS_PORT: ""
+  KAKAO_ADMIN_KEY: ""
+  KAKAO_CLIENT_ID: ""
+  KAKAO_CLIENT_SECRET: ""
+  KAKAO_REDIRECT_URI: ""
+  AWS_S3_ACCESS_KEY: ""
+  AWS_S3_SECRET_KEY: ""
+  AWS_REGION_STATIC: ""
+  JWT_SECRET: ""
+  CLOUD_AWS_S3_BUCKET: ""
+
 image:
   repository: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-k8s
   tag: latest
