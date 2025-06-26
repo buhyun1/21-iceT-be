@@ -24,8 +24,8 @@ spec:
           ports:
             - containerPort: 8080
           envFrom:
-          - secretRef:
-              name: spring-secret
+            - secretRef:
+                name: spring-secret
           # env:
           #   - name: SPRING_DATASOURCE_URL
           #     value: "{{ .Values.env.SPRING_DATASOURCE_URL }}"
