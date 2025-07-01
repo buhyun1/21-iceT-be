@@ -17,86 +17,14 @@ redis:
 
 ingress:
   enabled: true
-  className: nginx
+  className: alb
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  hosts:
-    - host: www.kooco.click
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /oauth/kakao/callback  
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /api
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /actuator/health
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /healthz
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-    - host: kooco.click
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /oauth/kakao/callback  
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /api
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /actuator/health
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
-        - path: /healthz
-          pathType: Prefix
-          backend:
-            service:
-              name: k8s-backend-backend
-              port:
-                number: 8080
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/group.name: kooco-group
 
 controller:
   hostNetwork: true
