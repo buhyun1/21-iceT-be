@@ -1,5 +1,0 @@
-apiVersion: v2
-name: controller
-description: Ingress Controller (e.g., nginx-ingress) chart
-version: 0.1.0
-appVersion: "1.0" 
