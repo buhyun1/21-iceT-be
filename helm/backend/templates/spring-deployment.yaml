@@ -22,7 +22,7 @@ spec:
             - containerPort: 8080
           envFrom:
             - secretRef:
-              name: secret
+              name: koco-spring-secret
         - name: redis
           image: redis:7.2
           ports:
