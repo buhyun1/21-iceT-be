@@ -1,48 +1,27 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "fullname" . }}
+  name: {{ include "backend.fullname" . }}
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
-  ingressClassName: nginx
+  ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: www.kooco.click
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host }}
       http:
         paths:
-          - path: /api
-            pathType: Prefix
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "fullname" . }}
+                name: {{ include "backend.fullname" $ }}
                 port:
-                  number: 8080
-          - path: /actuator/health
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "fullname" . }}
-                port:
-                  number: 8080
-          - path: /healthz
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ include "fullname" . }}
-                port:
-                  number: 8080
-          - path: /oauth/kakao/callback  
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ include "fullname" . }}
-                port:
-                  number: 8080
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "fullname" . }}
-                port:
-                  number: 8080
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}
+{{- end }}
