@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: koco-spring
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   metrics:
     - type: Resource
       resource:
@@ -17,3 +17,9 @@ spec:
         target:
           type: Utilization
           averageUtilization: 60
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
