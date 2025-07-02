@@ -1,6 +1,7 @@
 spring:
-  profiles:
-    active: local  # or prod (배포 시)
+  config:
+    activate:
+      on-profile: local
 
 # 공통 설정 (application.yml)
 
