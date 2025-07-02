@@ -23,7 +23,16 @@ spec:
           envFrom:
             - secretRef:
                 name: koco-spring-secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
         - name: redis
           image: redis:7.2
           ports:
             - containerPort: 6379
+          
+
