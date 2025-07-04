@@ -17,7 +17,7 @@ spec:
         - name: ecr-registry
       containers:
         - name: spring
-          image: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-app-repo:v2.0.0
+          image: 266735804784.dkr.ecr.ap-northeast-2.amazonaws.com/dev-ai:latest
           ports:
             - containerPort: 8080
           envFrom:
